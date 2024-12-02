@@ -1,0 +1,2 @@
+class NanniesController < ApplicationController
+end
