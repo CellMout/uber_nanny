@@ -28,8 +28,8 @@ class NanniesController < ApplicationController
     redirect_to nanny_path(@nanny)
   end
 
- private
+  private
   def nanny_params
-    params.require(:nanny).permit(:name, :email)
+    params.require(:nanny).permit(:name, :description)
   end
 end

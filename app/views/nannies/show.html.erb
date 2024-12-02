@@ -1,0 +1,5 @@
+<h1><%= @nanny.name %></h1>
+<p><%= @nanny.description %></p>
+
+<%= link_to 'Edit', edit_nanny_path(@nanny), class: 'btn btn-secondary' %>
+<%= link_to 'Back to List', nannies_path, class: 'btn btn-primary' %>
