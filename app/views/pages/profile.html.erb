@@ -8,8 +8,8 @@
       <li><%= booking.user.email %> <%= booking.status %> <%= booking.start_time %> <%= link_to "accept", accept_booking_path(booking) %> <%= link_to "decline", decline_booking_path(booking) %></li>
     <% end %>
   </div>
-
 <% end %>
+    <%= link_to "Declare a nanny", new_nanny_path, class: "btn btn-primary"%>
 
 <h1>My requests</h1>
 <% current_user.bookings.each do |booking| %>

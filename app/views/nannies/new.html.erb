@@ -1,6 +1,9 @@
 <h1>Add a New Nanny</h1>
 
-<%= simple_form_for(nannies) do |f| %>
+<%= simple_form_for @nanny do |f| %>
   <%= f.input :name %>
   <%= f.input :description %>
+  <%= f.input :hour_rate, as: :float %>
+  <%= f.submit %>
 <% end %>
+  
