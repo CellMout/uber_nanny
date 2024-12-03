@@ -6,6 +6,7 @@ class NanniesController < ApplicationController
 
   def show
     @nanny = Nanny.find(params[:id])
+    @booking = Booking.new
   end
 
   def new
@@ -14,8 +15,12 @@ class NanniesController < ApplicationController
 
   def create
     @nanny = Nanny.new(nanny_params)
-    @nanny.save
-    redirect_to nanny_path(@nanny)
+    @nanny.user = current_user
+    if @nanny.save
+      redirect_to profile_path
+    else
+      render :new, alert: "Creation error"
+    end
   end
 
   def edit
@@ -29,7 +34,8 @@ class NanniesController < ApplicationController
   end
 
   private
+
   def nanny_params
-    params.require(:nanny).permit(:name, :description)
+    params.require(:nanny).permit(:name, :description, :hour_rate)
   end
 end
