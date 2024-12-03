@@ -13,5 +13,5 @@
 
 <h1>My requests</h1>
 <% current_user.bookings.each do |booking| %>
-  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= booking.duration %> </li>
+  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %></li>
 <% end %>
