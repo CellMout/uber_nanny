@@ -6,6 +6,7 @@ class NanniesController < ApplicationController
 
   def show
     @nanny = Nanny.find(params[:id])
+    @booking = Booking.new
   end
 
   def new
@@ -15,7 +16,7 @@ class NanniesController < ApplicationController
   def create
     @nanny = Nanny.new(nanny_params)
     @nanny.save
-    redirect_to nanny_path(@nanny)
+    redirect_to nanny_path @nanny
   end
 
   def edit

@@ -1,20 +1,23 @@
 class BookingsController < ApplicationController
+
+
   def new
     @nanny = Nanny.find(params[:nanny_id])
     @booking = Booking.new
   end
 
-  def create
-    nanny = Nanny.find(params[:nanny_id])
-    @booking = Booking.new(booking_params)
-    @booking.nanny = @nanny
-    if @booking.save
-      redirect_to @booking
-    else
-      render :new
-    end
-  end
 
+    def create
+      @nanny = Nanny.find(params[:nanny_id])
+      @booking = Booking.new(booking_params)
+      @booking.user = current_user
+      @booking.nanny = @nanny
+      if @booking.save!
+        redirect_to nanny_path(@nanny), notice: "Réservation créée avec succès."
+      else
+        render 'nannies/show'
+      end
+    end
   def accept
     if @booking.update(status: 'accepted')
       redirect_to @booking, notice: 'Réservation acceptée.'
