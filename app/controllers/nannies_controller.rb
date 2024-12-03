@@ -6,21 +6,16 @@ class NanniesController < ApplicationController
 
   def show
     @nanny = Nanny.find(params[:id])
+    @booking = Booking.new
   end
 
   def new
     @nanny = Nanny.new
   end
 
-    if @nanny.save
-      redirect_to @nanny, notice: 'Nanny successfully created!'
-    else
-      render :new
-    end
-  end
-
   def create
     @nanny = Nanny.new(nanny_params)
+
     if params[:nanny][:photo].present?
       uploaded_file = params[:nanny][:photo]
       upload_result = Cloudinary::Uploader.upload(uploaded_file.path)
@@ -28,7 +23,7 @@ class NanniesController < ApplicationController
       @nanny.save
       redirect_to @nanny, notice: 'Nanny successfully created!'
     else
-      render :new
+      render :new, alert: "Creation error"
     end
   end
 
@@ -45,6 +40,6 @@ class NanniesController < ApplicationController
   private
 
   def nanny_params
-    params.require(:nanny).permit(:name, :description, :photo_url)
+    params.require(:nanny).permit(:name, :description, :hour_rate, :photo_url)
   end
 end

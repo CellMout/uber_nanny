@@ -1,6 +1,7 @@
 <h1><%= @nanny.name %></h1>
 <p><%= @nanny.description %></p>
 
+
 <% if @nanny.photo_url.present? %>
   <%= image_tag @nanny.photo_url, alt: "Profile photo of #{@nanny.name}" %>
 <% else %>
@@ -8,4 +9,21 @@
 <% end %>
 
 <%= link_to 'Edit', edit_nanny_path(@nanny), class: 'btn btn-secondary' %>
+
+
+<h1>Créer une réservation</h1>
+
+<%= simple_form_for [@nanny, @booking] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-group">
+    <%= f.input :start_time %>
+    <%= f.input :end_time %>
+    <%= f.input :address %>
+  </div>
+
+  <%= f.button :submit, "Créer la réservation", class: 'btn btn-primary' %>
+<% end %>
+
+
 <%= link_to 'Back to List', nannies_path, class: 'btn btn-primary' %>
