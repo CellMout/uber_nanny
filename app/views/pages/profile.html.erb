@@ -5,7 +5,7 @@
     <li><%= nanny.name %></li>
     <% nanny_bookings = Booking.where(nanny: nanny) %>
     <% nanny_bookings.each do |booking| %>
-      <li><%= booking.user.email %> <%= booking.status %> <%= booking.start_time %> <%= link_to "accept", accept_booking_path(booking) %> <%= link_to "decline", decline_booking_path(booking) %></li>
+      <li><%= booking.user.email %> <%= booking.status %> <%= booking.start_time %> <%= booking.duration %>  <%= link_to "accept", accept_booking_path(booking) %> <%= link_to "decline", decline_booking_path(booking) %></li>
     <% end %>
   </div>
 <% end %>
@@ -13,5 +13,5 @@
 
 <h1>My requests</h1>
 <% current_user.bookings.each do |booking| %>
-  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %></li>
+  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= booking.duration %> </li>
 <% end %>
