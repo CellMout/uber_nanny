@@ -1,0 +1,6 @@
+<%= simple_form_for @nanny do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :hour_rate, as: :float %>
+  <%= f.submit %>
+<% end %>
