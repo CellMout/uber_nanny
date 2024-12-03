@@ -1,0 +1,8 @@
+<h1>List of Nannies</h1>
+
+<% @nannies.each do |nanny| %>
+  <div>
+    <h2><%= link_to nanny.name, nanny_path(nanny) %></h2>
+    <p><%= nanny.description %></p>
+  </div>
+<% end %>
