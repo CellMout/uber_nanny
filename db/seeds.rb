@@ -12,7 +12,7 @@ Booking.destroy_all
 Nanny.destroy_all
 User.destroy_all
 
-User.create(email: "elie.celka@gmail.com", password: "password")
+User.create(email: "admin@gmail.com", password: "password")
 10.times do
   url = "https://randomuser.me/api/"
   user_serialized = URI.parse(url).read
