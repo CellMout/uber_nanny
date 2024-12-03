@@ -1,11 +1,13 @@
 class BookingsController < ApplicationController
+  before_action :set_booking, only: [:accept, :decline]
+
   def new
     @nanny = Nanny.find(params[:nanny_id])
     @booking = Booking.new
   end
 
   def create
-    nanny = Nanny.find(params[:nanny_id])
+    @nanny = Nanny.find(params[:nanny_id])
     @booking = Booking.new(booking_params)
     @booking.nanny = @nanny
     if @booking.save
@@ -17,17 +19,17 @@ class BookingsController < ApplicationController
 
   def accept
     if @booking.update(status: 'accepted')
-      redirect_to @booking, notice: 'Réservation acceptée.'
+      redirect_to profile_path, notice: 'Réservation acceptée.'
     else
-      redirect_to @booking, alert: "Erreur lors de l'acceptation de la réservation."
+      redirect_to profile_path, alert: "Erreur lors de l'acceptation de la réservation."
     end
   end
 
   def decline
     if @booking.update(status: 'declined')
-      redirect_to @booking, notice: 'Réservation déclinée.'
+      redirect_to profile_path, notice: 'Réservation déclinée.'
     else
-      redirect_to @booking, alert: 'Erreur lors du refus de la réservation.'
+      redirect_to profile_path, alert: 'Erreur lors du refus de la réservation.'
     end
   end
 
