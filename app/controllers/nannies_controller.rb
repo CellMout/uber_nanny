@@ -17,9 +17,13 @@ class NanniesController < ApplicationController
 
   def create
     @nanny = Nanny.new(nanny_params)
-    @nanny.user = current_user
-    if @nanny.save
-      redirect_to profile_path
+
+    if params[:nanny][:photo].present?
+      uploaded_file = params[:nanny][:photo]
+      upload_result = Cloudinary::Uploader.upload(uploaded_file.path)
+      @nanny.photo_url = upload_result['secure_url']
+      @nanny.save
+      redirect_to @nanny, notice: 'Nanny successfully created!'
     else
       render :new, alert: "Creation error"
     end
@@ -50,6 +54,6 @@ class NanniesController < ApplicationController
   end
 
   def nanny_params
-    params.require(:nanny).permit(:name, :description, :hour_rate)
+    params.require(:nanny).permit(:name, :description, :hour_rate, :photo_url)
   end
 end

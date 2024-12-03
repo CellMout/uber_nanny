@@ -1,6 +1,7 @@
 <%= simple_form_for @nanny do |f| %>
   <%= f.input :name %>
   <%= f.input :description %>
+  <%= f.input :photo, as: :file, label: "Upload Profile Photo" %>
   <%= f.input :hour_rate, as: :float %>
   <%= f.submit %>
 <% end %>
