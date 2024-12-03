@@ -1,5 +1,7 @@
 class NanniesController < ApplicationController
 
+  before_action :set_nanny, only: [:show, :edit, :update, :destroy]
+
   def index
     @nannies = Nanny.all
   end
@@ -31,6 +33,14 @@ class NanniesController < ApplicationController
     @nanny = Nanny.find(params[:id])
   end
 
+  def update
+    if @nanny.update(nanny_params)
+      redirect_to profile_path, notice: 'Nanny successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @nanny = Nanny.find(params[:id])
     @nanny.destroy
@@ -38,6 +48,10 @@ class NanniesController < ApplicationController
   end
 
   private
+
+  def set_nanny
+    @nanny = Nanny.find(params[:id])
+  end
 
   def nanny_params
     params.require(:nanny).permit(:name, :description, :hour_rate, :photo_url)
