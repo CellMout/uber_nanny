@@ -5,7 +5,7 @@
 <% if @nanny.photo.attached? %>
   <%= cl_image_tag @nanny.photo.key, alt: "Profile photo of #{@nanny.name}", height: 300, width: 400, crop: :fill %>
 <% else %>
-  <p>No profile photo available.</p>
+  <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{@nanny.name}", height: 300, width: 400, crop: :fill %>
 <% end %>
 
 <h1>Créer une réservation</h1>
