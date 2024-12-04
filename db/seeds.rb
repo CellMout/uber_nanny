@@ -20,13 +20,16 @@ User.create(email: "admin@gmail.com", password: "password", first_name: "First_N
   User.create(email: user["results"][0]["email"], password: "password", first_name: user["results"][0]["name"]["first"], last_name: user["results"][0]["name"]["last"])
 end
 
-
 User.all.each do |user|
   2.times do
     url = "https://randomuser.me/api/"
     user_serialized = URI.parse(url).read
     data = JSON.parse(user_serialized)
-    user.nannies << Nanny.create(name: data["results"][0]["name"]["first"], description: Faker::Lorem.paragraph, hour_rate: rand(8.0..25.5).round(1), photo_url: data["results"][0]["picture"]["large"])
+
+    file = URI.parse(data["results"][0]["picture"]["large"]).open
+    nanny = Nanny.create(name: data["results"][0]["name"]["first"], description: Faker::Lorem.paragraph, hour_rate: rand(8.0..25.5).round(1), photo_url: data["results"][0]["picture"]["large"])
+    nanny.photo.attach(io: file, filename: "#{nanny.name}.jpg", content_type: "image/jpg")
+    user.nannies << nanny
   end
 end
 
