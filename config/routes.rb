@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :nannies do
     resources :bookings, only: [:create]
   end
-  resources :bookings, only: [:destroy, :edit, :update]
+  resources :bookings, only: [:destroy, :edit, :update, :show]
   get "bookings/:id/accept", to: "bookings#accept", as: :accept_booking
   get "bookings/:id/decline", to: "bookings#decline", as: :decline_booking
 

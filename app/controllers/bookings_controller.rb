@@ -1,5 +1,8 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:accept, :decline, :edit, :update, :destroy]
+  before_action :set_booking, only: [:accept, :decline, :edit, :update, :destroy, :show]
+
+  def show
+  end
 
   def new
     @nanny = Nanny.find(params[:nanny_id])
@@ -49,7 +52,6 @@ class BookingsController < ApplicationController
     @booking.destroy
 
     redirect_to profile_path, notice: 'booking successfully deleted.'
-
   end
 
   private
