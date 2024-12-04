@@ -3,7 +3,7 @@
 
 
 <% if @nanny.photo_url.present? %>
-  <%= image_tag @nanny.photo_url, alt: "Profile photo of #{@nanny.name}" %>
+  <%= cl_image_tag @nanny.photo_url, alt: "Profile photo of #{@nanny.name}", height: 300, width: 400, crop: :fill %>
 <% else %>
   <p>No profile photo available.</p>
 <% end %>
