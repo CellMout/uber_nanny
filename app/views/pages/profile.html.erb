@@ -4,7 +4,7 @@
   <div>
     <li><%= nanny.name %> -- <%= link_to 'Edit', edit_nanny_path(nanny), class: 'btn btn-sm btn-secondary' %> <%= link_to "delete", nanny_path(nanny), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %></li>
     <% nanny_bookings = Booking.where(nanny: nanny) %>
-    <% nanny_bookings.each do |booking| %>
+    <% nanny_bookings.sort_by { |booking| booking.start_time }.each do |booking| %>
       <li><%= booking.user.first_name %> <%= booking.user.last_name %> email: <%= booking.user.email %> || status: <%= booking.status %> || from: <%= booking.start_time %> to: <%= booking.end_time %> (~<%= booking.duration %> days) || <%= link_to "accept", accept_booking_path(booking) %> or <%= link_to "decline", decline_booking_path(booking) %> || <%= link_to "see details" ,booking_path(booking) %></li>
     <% end %>
   </div>

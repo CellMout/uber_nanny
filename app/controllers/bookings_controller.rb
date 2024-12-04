@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.nanny = @nanny
     if @booking.save!
-      redirect_to nanny_path(@nanny), notice: "Réservation créée avec succès."
+      redirect_to profile_path, notice: "Réservation créée avec succès."
     else
       render 'nannies/show', alert: "Erreur lors de la création de la réservation."
     end
