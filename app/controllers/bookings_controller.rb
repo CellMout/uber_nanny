@@ -38,7 +38,11 @@ class BookingsController < ApplicationController
   end
 
   def update
-    raise
+    if @booking.update(booking_params)
+      redirect_to profile_path, notice: 'Réservation mise à jour.'
+    else
+      render :edit, alert: "Erreur lors de la mise à jour de la réservation."
+    end
   end
 
   def destroy
