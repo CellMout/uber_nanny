@@ -14,5 +14,6 @@
 
 <h1>My requests</h1>
 <% current_user.bookings.each do |booking| %>
-  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= link_to "edit booking", edit_booking_path(booking) %></li>
+  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= link_to "edit booking", edit_booking_path(booking) %> <%= link_to "delete", booking_path(booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %>
+</li>
 <% end %>
