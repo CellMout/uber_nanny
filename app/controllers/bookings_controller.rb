@@ -42,6 +42,10 @@ class BookingsController < ApplicationController
   end
 
   def destroy
+    @booking.destroy
+
+    redirect_to profile_path, notice: 'booking successfully deleted.'
+
   end
 
   private
