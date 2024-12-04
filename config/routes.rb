@@ -9,9 +9,9 @@ Rails.application.routes.draw do
 
   get "profile", to: "pages#profile"
   resources :nannies do
-    resources :bookings, only: [:create]
+    resources :bookings, only: [:create, :update, :edit]
   end
-
+  resources :bookings, only: [:destroy]
   get "bookings/:id/accept", to: "bookings#accept", as: :accept_booking
   get "bookings/:id/decline", to: "bookings#decline", as: :decline_booking
 

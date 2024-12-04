@@ -14,5 +14,5 @@
 
 <h1>My requests</h1>
 <% current_user.bookings.each do |booking| %>
-  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %></li>
+  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= link_to "edit booking", edit_booking_path(booking) %></li>
 <% end %>
