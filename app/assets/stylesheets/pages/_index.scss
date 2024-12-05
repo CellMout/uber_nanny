@@ -1,6 +1,6 @@
 // Import page-specific CSS files here.
 @import "home";
-
+@import "profile";
 
 .card-product {
   overflow: hidden;
@@ -78,3 +78,4 @@
 body {
   background: linear-gradient(to bottom, #f8f9fa, #ffffff);
 }
+

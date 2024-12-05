@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.nanny-info-container {
+  display: flex;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  margin-top: 40px;
+   img {
+    border-radius: 8px 0 0 8px;
+    max-width: 400px;
+   }
+}
+
+.nanny-details {
+  flex: 2;
+  margin-left: 20px;
+}
+
+.reservation-form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cancel {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+  margin-right: 300px;
+}
