@@ -1,19 +1,40 @@
-<h1>My nannies</h1>
 
-<% current_user.nannies.each do |nanny| %>
-  <div>
-    <li><%= nanny.name %> -- <%= link_to 'Edit', edit_nanny_path(nanny), class: 'btn btn-sm btn-secondary' %> <%= link_to "delete", nanny_path(nanny), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %></li>
-    <% nanny_bookings = Booking.where(nanny: nanny) %>
-    <% nanny_bookings.sort_by { |booking| booking.start_time }.each do |booking| %>
-      <li><%= booking.user.first_name %> <%= booking.user.last_name %> email: <%= booking.user.email %> || status: <%= booking.status %> || from: <%= booking.start_time %> to: <%= booking.end_time %> (~<%= booking.duration %> days) || <%= link_to "accept", accept_booking_path(booking) %> or <%= link_to "decline", decline_booking_path(booking) %> || <%= link_to "see details" ,booking_path(booking) %></li>
-    <% end %>
-  </div>
-<% end %>
+<div class="container m-3">
+  <h1>My nannies</h1>
 
-    <%= link_to "Declare a nanny", new_nanny_path, class: "btn btn-primary"%>
+  <% current_user.nannies.each do |nanny| %>
+    <div>
+      <li>
+        <%= nanny.name %> -- <%= link_to 'Edit', edit_nanny_path(nanny), class: 'btn btn-sm btn-secondary' %> <%= link_to "delete", nanny_path(nanny), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %>
 
-<h1>My requests</h1>
-<% current_user.bookings.each do |booking| %>
-  <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= link_to "edit booking", edit_booking_path(booking) %> <%= link_to "delete", booking_path(booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %>
-</li>
-<% end %>
+        <div class="card card-c p-1" style="width: 18rem;">
+          <div class="card-c">
+            <% if nanny.photo.attached? %>
+              <%= cl_image_tag nanny.photo.key, alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill, class: "img-thumbnail" %>
+            <% else %>
+              <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill, class: "card-img-top" %>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <h5> <%= nanny.name %> </h5>
+          </div>
+        </div>
+
+      </li>
+      <% nanny_bookings = Booking.where(nanny: nanny) %>
+      <% nanny_bookings.sort_by { |booking| booking.start_time }.each do |booking| %>
+        <li>
+          <%= booking.user.first_name %> <%= booking.user.last_name %> email: <%= booking.user.email %> || status: <%= booking.status %> || from: <%= booking.start_time %> to: <%= booking.end_time %> (~<%= booking.duration %> days) || <%= link_to "accept", accept_booking_path(booking) %> or <%= link_to "decline", decline_booking_path(booking) %> || <%= link_to "see details" ,booking_path(booking) %>
+        </li>
+      <% end %>
+    </div>
+  <% end %>
+
+      <%= link_to "Declare a nanny", new_nanny_path, class: "btn btn-primary"%>
+
+  <h1>My requests</h1>
+  <% current_user.bookings.each do |booking| %>
+    <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= link_to "edit booking", edit_booking_path(booking) %> <%= link_to "delete", booking_path(booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %>
+  </li>
+  <% end %>
+</div>
