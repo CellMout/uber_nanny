@@ -1,7 +1,7 @@
 <div class="container">
   <div class="nanny-info-container">
 
-    <div class="nanny-photo">
+    <div>
       <% if @nanny.photo.attached? %>
         <%= cl_image_tag @nanny.photo.key, alt: "Profile photo of #{@nanny.name}", height: 300, width: 400, crop: :fill %>
       <% else %>
@@ -22,11 +22,11 @@
           <%= f.error_notification %>
 
           <div class="form-group">
-            <%= f.input :start_time, label: "Heure de début", input_html: { class: "form-control form-control-lg" } %>
+            <%= f.input :start_time, label: "starting from", input_html: { class: "form-control form-control-lg" } %>
           </div>
 
           <div class="form-group">
-            <%= f.input :end_time, label: "Heure de fin", input_html: { class: "form-control form-control-lg" } %>
+            <%= f.input :end_time, label: "Until", input_html: { class: "form-control form-control-lg" } %>
           </div>
 
           <div class="form-group">
@@ -34,11 +34,11 @@
           </div>
 
           <div class="text-center mt-4">
-            <%= f.button :submit, "Book this Uber Nanny !", class: 'btn btn-primary btn-lg btn-block' %>
+            <%= f.button :submit, "Book this Uber Nanny !", class: 'btn btn-outline-primary btn-lg btn-block' %>
           </div>
         <% end %>
       </div>
     </div>
 </div>
-
-<%= link_to 'Back to List', nannies_path, class: 'btn btn-primary float-end' %>
+<li></li>
+<%= link_to 'Back to List', nannies_path, class: 'btn btn-primary float-end me-5' %>

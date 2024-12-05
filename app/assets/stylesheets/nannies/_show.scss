@@ -6,12 +6,15 @@
 .nanny-info-container {
   display: flex;
   align-items: flex-start;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-}
-
-.nanny-photo {
-  flex: 1;
-  max-width: 400px;
+  margin-top: 40px;
+   img {
+    border-radius: 8px 0 0 8px;
+    max-width: 400px;
+   }
 }
 
 .nanny-details {
