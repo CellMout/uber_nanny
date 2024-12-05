@@ -1,5 +1,8 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:accept, :decline, :edit, :update, :destroy]
+  before_action :set_booking, only: [:accept, :decline, :edit, :update, :destroy, :show]
+
+  def show
+  end
 
   def new
     @nanny = Nanny.find(params[:nanny_id])
@@ -12,7 +15,7 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.nanny = @nanny
     if @booking.save!
-      redirect_to nanny_path(@nanny), notice: "Réservation créée avec succès."
+      redirect_to profile_path, notice: "Réservation créée avec succès."
     else
       render 'nannies/show', alert: "Erreur lors de la création de la réservation."
     end
@@ -38,10 +41,17 @@ class BookingsController < ApplicationController
   end
 
   def update
-    raise
+    if @booking.update(booking_params)
+      redirect_to profile_path, notice: 'Réservation mise à jour.'
+    else
+      render :edit, alert: "Erreur lors de la mise à jour de la réservation."
+    end
   end
 
   def destroy
+    @booking.destroy
+
+    redirect_to profile_path, notice: 'booking successfully deleted.'
   end
 
   private

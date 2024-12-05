@@ -5,22 +5,99 @@
 <% if @nanny.photo.attached? %>
   <%= cl_image_tag @nanny.photo.key, alt: "Profile photo of #{@nanny.name}", height: 300, width: 400, crop: :fill %>
 <% else %>
-  <p>No profile photo available.</p>
+  <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{@nanny.name}", height: 300, width: 400, crop: :fill %>
 <% end %>
 
-<h1>Créer une réservation</h1>
+
+
+<div class="reservation-form">
+  <h1 class="text-center mb-4">Créer une réservation</h1>
+  <%= simple_form_for [@nanny, @booking] do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-group">
+      <%= f.input :start_time, label: "Heure de début", input_html: { class: "form-control form-control-lg" } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.input :end_time, label: "Heure de fin", input_html: { class: "form-control form-control-lg" } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.input :address, label: "Adresse", input_html: { class: "form-control form-control-lg", placeholder: "Entrez l'adresse ici..." } %>
+    </div>
+
+    <div class="text-center mt-4">
+      <%= f.button :submit, "Créer la réservation", class: 'btn btn-primary btn-lg btn-block' %>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .reservation-form {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .reservation-form h1 {
+    font-size: 2rem;
+    color: #34495e;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-control-lg {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .form-control-lg:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+
+  .btn-block {
+    width: 100%;
+  }
+</style>
+
+<%# <h1>Créer une réservation</h1>
 
 <%= simple_form_for [@nanny, @booking] do |f| %>
-  <%= f.error_notification %>
+  <%# <%= f.error_notification %>
 
-  <div class="form-group">
+  <%# <div class="form-group">
     <%= f.input :start_time %>
-    <%= f.input :end_time %>
-    <%= f.input :address %>
-  </div>
+    <%# <%= f.input :end_time %>
+    <%# <%= f.input :address %>
+  <%# </div> %>
 
-  <%= f.button :submit, "Créer la réservation", class: 'btn btn-primary' %>
-<% end %>
+  <%# <%= f.button :submit, "Créer la réservation", class: 'btn btn-primary' %> 
+<%# <% end %>
 
 
 
