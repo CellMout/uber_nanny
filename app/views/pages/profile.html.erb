@@ -1,36 +1,101 @@
 
-<div class="container m-3">
-  <h1>My nannies</h1>
+<div class="container">
+  <div class="d-flex justify-content-between m-3">
+    <h1>My nannies</h1>       <div class=""><%= link_to "Declare a nanny", new_nanny_path, class: "btn btn-primary"%></div>
+
+  </div>
 
   <% current_user.nannies.each do |nanny| %>
-    <div>
-      <li>
-        <%= nanny.name %> -- <%= link_to 'Edit', edit_nanny_path(nanny), class: 'btn btn-sm btn-secondary' %> <%= link_to "delete", nanny_path(nanny), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %>
+    <div class="card-c m-3 rounded">
+      <div>
 
-        <div class="card card-c p-1" style="width: 18rem;">
-          <div class="card-c">
+        <div class="d-flex justify-content-between border-bottom ">
+          <div class="card-c m-3 rounded-5  bg-secondary-subtle">
             <% if nanny.photo.attached? %>
-              <%= cl_image_tag nanny.photo.key, alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill, class: "img-thumbnail" %>
+              <%= cl_image_tag nanny.photo.key, alt: "Profile photo of #{nanny.name}", height: 200, width: 200, crop: :fill, class:"border border-secondary-subtle rounded-5"%>
             <% else %>
-              <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill, class: "card-img-top" %>
+              <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill %>
             <% end %>
           </div>
-          <div class="card-body">
-            <h5> <%= nanny.name %> </h5>
+
+          <h5 class="text-center"><%= nanny.name %></h5>
+
+          <div class="m-3">
+            <%= link_to 'Edit', edit_nanny_path(nanny), class: 'btn btn-secondary' %>
+            <%= link_to "delete", nanny_path(nanny), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger text-white' %>
           </div>
+
         </div>
 
-      </li>
+      </div>
+
       <% nanny_bookings = Booking.where(nanny: nanny) %>
-      <% nanny_bookings.sort_by { |booking| booking.start_time }.each do |booking| %>
-        <li>
-          <%= booking.user.first_name %> <%= booking.user.last_name %> email: <%= booking.user.email %> || status: <%= booking.status %> || from: <%= booking.start_time %> to: <%= booking.end_time %> (~<%= booking.duration %> days) || <%= link_to "accept", accept_booking_path(booking) %> or <%= link_to "decline", decline_booking_path(booking) %> || <%= link_to "see details" ,booking_path(booking) %>
-        </li>
-      <% end %>
+      <div class="row mt-1">
+        <div class="col">
+          <h2>Accepted</h2>
+          <% nanny_bookings.where(status: "accepted").sort_by { |booking| booking.start_time }.each do |booking| %>
+            <div class="card bg-success bg-opacity-10 my-1 mx-1 d-block p-1">
+              <div class="d-inline">
+                <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
+                <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
+              </div>
+              <div class="d-inline">
+                <%= link_to booking_path(booking), class: "btn btn-dark text-white" do %>
+                  <i class="fa-solid fa-circle-info"></i>
+                <% end %>
+              </div>
+            </div >
+          <% end %>
+        </div>
+
+        <div class="col">
+          <h2>Pending</h2>
+          <% nanny_bookings.where(status: "pending").sort_by { |booking| booking.start_time }.each do |booking| %>
+            <div class="card bg-warning bg-opacity-10 my-1 mx-1 d-block p-1 d-inline-block">
+              <div class="d-inline">
+                <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
+                <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
+              </div>
+              <div class="d-inline">
+                <%= link_to accept_booking_path(booking), class: "btn btn-success text-white" do %>
+                 <i class="fa-solid fa-check"></i>
+                <% end %>
+
+                <%= link_to decline_booking_path(booking), class: "btn btn-danger text-white" do %>
+                  <i class='fa-solid fa-xmark'></i>
+                <% end %>
+
+                <%= link_to booking_path(booking), class: "btn btn-dark text-white" do %>
+                  <i class="fa-solid fa-circle-info"></i>
+                <% end %>
+              </div>
+            </div >
+
+          <% end %>
+        </div>
+
+        <div class="col">
+          <h2>Declined</h2>
+          <% nanny_bookings.where(status: "declined").sort_by { |booking| booking.start_time }.each do |booking| %>
+            <div class="card bg-danger bg-opacity-10 my-1 mx-1 d-block p-1">
+              <div class="d-inline">
+                <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
+                <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
+              </div>
+              <div class="d-inline">
+                <%= link_to booking_path(booking), class: "btn btn-dark text-white" do %>
+                  <i class="fa-solid fa-circle-info"></i>
+                <% end %>
+              </div>
+            </div >
+          <% end %>
+        </div>
+
+      </div>
+
     </div>
   <% end %>
 
-      <%= link_to "Declare a nanny", new_nanny_path, class: "btn btn-primary"%>
 
   <h1>My requests</h1>
   <% current_user.bookings.each do |booking| %>
