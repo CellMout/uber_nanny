@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:accept, :decline, :edit, :update, :destroy, :show]
+  include ActionView::RecordIdentifier
 
   def show
   end
@@ -15,25 +16,25 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.nanny = @nanny
     if @booking.save!
-      redirect_to profile_path, notice: "Réservation créée avec succès."
+      redirect_to profile_path, notice: "Booking successfully sent."
     else
-      render 'nannies/show', alert: "Erreur lors de la création de la réservation."
+      render 'nannies/show', alert: "Booking could not be sent."
     end
   end
 
   def accept
     if @booking.update(status: 'accepted')
-      redirect_to profile_path, notice: 'Réservation acceptée.'
+      redirect_to profile_path, anchor: dom_id(@booking.nanny), notice: 'Booking accepted.'
     else
-      redirect_to profile_path, alert: "Erreur lors de l'acceptation de la réservation."
+      redirect_to profile_path, anchor: dom_id(@booking.nanny), alert: "Booking could not be accepted."
     end
   end
 
   def decline
     if @booking.update(status: 'declined')
-      redirect_to profile_path, notice: 'Réservation déclinée.'
+      redirect_to profile_path, notice: 'Booking declined.'
     else
-      redirect_to profile_path, alert: 'Erreur lors du refus de la réservation.'
+      redirect_to profile_path, alert: 'Booking could not be declined.'
     end
   end
 
@@ -42,16 +43,16 @@ class BookingsController < ApplicationController
 
   def update
     if @booking.update(booking_params)
-      redirect_to profile_path, notice: 'Réservation mise à jour.'
+      redirect_to profile_path, notice: 'Booking updated successfully.'
     else
-      render :edit, alert: "Erreur lors de la mise à jour de la réservation."
+      render :edit, alert: "Booking could not be updated."
     end
   end
 
   def destroy
     @booking.destroy
 
-    redirect_to profile_path, notice: 'booking successfully deleted.'
+    redirect_to profile_path, notice: 'Booking successfully deleted.'
   end
 
   private
