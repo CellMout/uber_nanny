@@ -6,6 +6,9 @@
   </div>
 
   <% current_user.nannies.each do |nanny| %>
+    <div>
+    <%= content_tag :div, id: dom_id(nanny) do %>
+
     <div class="card-c m-3 rounded">
       <div>
 
@@ -94,12 +97,15 @@
       </div>
 
     </div>
+    <% end %>
+    </div>
   <% end %>
 
 
   <h1>My requests</h1>
   <% current_user.bookings.each do |booking| %>
-    <li><%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= link_to "edit booking", edit_booking_path(booking) %> <%= link_to "delete", booking_path(booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %>
-  </li>
+    <div>
+      <%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= link_to "edit booking", edit_booking_path(booking) %> <%= link_to "delete", booking_path(booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %>
+    </div>
   <% end %>
 </div>
