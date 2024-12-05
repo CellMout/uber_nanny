@@ -41,7 +41,7 @@ class NanniesController < ApplicationController
   def destroy
     @nanny = Nanny.find(params[:id])
     @nanny.destroy
-
+  
     redirect_to profile_path, notice: 'Nanny successfully deleted.'
 
   end
