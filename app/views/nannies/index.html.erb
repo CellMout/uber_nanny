@@ -1,9 +1,103 @@
-<h1>List of Nannies</h1>
+<div class="container py-4">
+  <h1 class="text-center mb-5 text-primary animated-title">Find Your Nanny</h1>
+  <p class="text-center text-muted mb-4">
+  Browse through our nannies and find the perfect match for your family 👩.
+  </p>
 
-<% @nannies.each do |nanny| %>
-  <div>
-    <h2><%= link_to nanny.name, nanny_path(nanny) %></h2>
-    <p><%= nanny.description %></p>
-    
+  <div class="row">
+    <% @nannies.each do |nanny| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-sm h-100 card-hover" onclick="window.location='<%= nanny_path(nanny) %>'">
+          <div class="card-body text-center">
+            <% if nanny.photo.attached? %>
+              <%= cl_image_tag nanny.photo.key, alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill, class: "rounded-circle profile-photo mb-3" %>
+            <% else %>
+              <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill, class: "rounded-circle profile-photo mb-3" %>
+            <% end %>
+
+            <h3 class="card-title"><%= link_to nanny.name, nanny_path(nanny), class: "text-decoration-none text-dark fw-bold" %></h3>
+            <p class="text-muted"><%= nanny.description %></p>
+            <p class="text">€<%= nanny.hour_rate %>/h</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
+
+<style>
+  /* Animations */
+  .animated-title {
+    animation: fadeInDown 1s ease-out;
+  }
+
+  /* Animation au chargement du texte */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Apparition des cartes */
+  .card-hover {
+    opacity: 0;
+    transform: scale(0.95);
+    animation: cardFadeIn 0.5s ease-out forwards;
+
+  }
+
+
+  .card-hover:nth-child(odd) {
+    animation-delay: 0.2s;
+  }
+
+  .card-hover:nth-child(even) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes cardFadeIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Zoom sur l'image */
+  .profile-photo {
+    transition: transform 0.3s ease;
+  }
+
+  .card-hover:hover .profile-photo {
+    transform: scale(1.1); /* Agrandit légèrement */
+  }
+
+  /* Effet de survol */
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-10px); /* Légère élévation */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2); /* Ombre subtile */
+  }
+
+
+  /* Couleurs et ambiance */
+  body {
+    background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+  }
+
+  .card-title {
+    transition: color 0.3s ease;
+  }
+
+  .card-title:hover {
+    color: #007bff; /* Accentuation au survol */
+  }
+</style>
