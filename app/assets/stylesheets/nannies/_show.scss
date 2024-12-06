@@ -1,7 +1,4 @@
-.container {
-  display: flex;
-  flex-direction: column;
-}
+
 
 .nanny-info-container {
   display: flex;
@@ -35,4 +32,30 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-product {
+  overflow: hidden;
+  height: 400px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.card-product img {
+  height: 100%;
+  width: 150px;
+  text-align: center;
+  margin: auto;
+  border-radius: 30px;
+  padding: 20px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-product, .reservation-form {
+  max-width: 800px;
+  margin: auto;
 }
