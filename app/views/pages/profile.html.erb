@@ -1,8 +1,12 @@
 
-<div class="container">
-  <div class="d-flex justify-content-between m-3">
-    <h1>My nannies</h1>       <div class=""><%= link_to "Declare a nanny", new_nanny_path, class: "btn btn-primary"%></div>
-
+<div class="container mb-3">
+  <div class="d-flex justify-content-between m-3 align-items-center">
+    <h1 class="m-0">My nannies</h1>
+    <div class="">
+      <%= link_to new_nanny_path, class: "btn btn-primary" do %>
+        <i class="fa-solid fa-plus"></i> Declare a new nanny
+      <% end %>
+    </div>
   </div>
 
   <% current_user.nannies.each do |nanny| %>
@@ -12,8 +16,8 @@
     <div class="card-c m-3 rounded">
       <div>
 
-        <div class="d-flex justify-content-between border-bottom ">
-          <div class="card-c m-3 rounded-5  bg-secondary-subtle">
+        <div style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('<%= image_path("nanny_profile_banner") %>'); box-shadow: 0 4px 2px -2px gray;" class="d-flex justify-content-between align-items-center border-bottom mb-2">
+          <div class="border border-dark m-3 rounded-5  bg-secondary-subtle">
             <% if nanny.photo.attached? %>
               <%= cl_image_tag nanny.photo.key, alt: "Profile photo of #{nanny.name}", height: 200, width: 200, crop: :fill, class:"border border-secondary-subtle rounded-5"%>
             <% else %>
@@ -21,11 +25,15 @@
             <% end %>
           </div>
 
-          <h5 class="text-center"><%= nanny.name %></h5>
+          <h5 style="font-size: 72px;" class="text-center text-white"><%= nanny.name %></h5>
 
           <div class="m-3">
-            <%= link_to 'Edit', edit_nanny_path(nanny), class: 'btn btn-secondary' %>
-            <%= link_to "delete", nanny_path(nanny), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger text-white' %>
+            <p class="text-end"><%= link_to edit_nanny_path(nanny), class: 'btn btn-dark'  do %>
+              Edit nanny <i class='fa-solid fa-pen-to-square'></i>
+            <% end %></p>
+            <p class="text-end"><%= link_to nanny_path(nanny), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger text-white' do %>
+              Delete nanny <i class='fa-solid fa-xmark'></i>
+            <% end %></p>
           </div>
 
         </div>
@@ -35,9 +43,9 @@
       <% nanny_bookings = Booking.where(nanny: nanny) %>
       <div class="row mt-1">
         <div class="col">
-          <h2>Accepted</h2>
+          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1">Accepted</h2>
           <% nanny_bookings.where(status: "accepted").sort_by { |booking| booking.start_time }.each do |booking| %>
-            <div class="card bg-success bg-opacity-10 my-1 mx-1 d-block p-1">
+            <div class="card shadow-sm bg-success bg-opacity-10 my-1 mx-1 d-block p-1">
               <div class="d-inline">
                 <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
                 <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
@@ -52,9 +60,9 @@
         </div>
 
         <div class="col">
-          <h2>Pending</h2>
+          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1">Pending</h2>
           <% nanny_bookings.where(status: "pending").sort_by { |booking| booking.start_time }.each do |booking| %>
-            <div class="card bg-warning bg-opacity-10 my-1 mx-1 d-block p-1 d-inline-block">
+            <div class="card shadow-sm bg-warning bg-opacity-10 my-1 mx-1 d-block p-1 d-inline-block">
               <div class="d-inline">
                 <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
                 <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
@@ -78,9 +86,9 @@
         </div>
 
         <div class="col">
-          <h2>Declined</h2>
+          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1">Declined</h2>
           <% nanny_bookings.where(status: "declined").sort_by { |booking| booking.start_time }.each do |booking| %>
-            <div class="card bg-danger bg-opacity-10 my-1 mx-1 d-block p-1">
+            <div class="card shadow-sm bg-danger bg-opacity-10 my-1 mx-1 d-block p-1">
               <div class="d-inline">
                 <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
                 <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
@@ -102,10 +110,30 @@
   <% end %>
 
 
-  <h1>My requests</h1>
+  <h1 class="ms-3 mb-3">My requests</h1>
   <% current_user.bookings.each do |booking| %>
-    <div>
-      <%= booking.nanny.name %> <%= booking.status %> <%= booking.start_time %> <%= link_to "edit booking", edit_booking_path(booking) %> <%= link_to "delete", booking_path(booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-sm btn-danger' %>
+    <div class="card-c m-3 my-1 rounded-5 p-2 m-1 d-flex justify-content-between align-items-center">
+      <div>
+        To: <%= booking.nanny.name %>
+        from: <%= booking.start_time %> to: <%= booking.end_time %> (~<%= booking.duration %> days)
+      </div>
+      <div>
+        <% if booking.status == "pending" %>
+          <span class="bg-warning bg-opacity-75 rounded-5 px-3 py-2"><%= booking.status %></span>
+        <% elsif booking.status == "accepted" %>
+          <span class="bg-success bg-opacity-75 rounded-5 px-3 py-2"><%= booking.status %></span>
+        <% else %>
+          <span class="bg-danger bg-opacity-75 rounded-5  px-3 py-2"><%= booking.status %></span>
+        <% end %>
+      </div>
+      <div>
+        <%= link_to edit_booking_path(booking), class: "btn btn-dark text-white rounded-5" do %>
+          <i class="fa-solid fa-pen-to-square"></i>
+        <% end %>
+        <%= link_to booking_path(booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger text-white rounded-5 " do %>
+          <i class='fa-solid fa-xmark'></i>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>
