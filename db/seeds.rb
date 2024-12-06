@@ -27,7 +27,7 @@ User.all.each do |user|
     data = JSON.parse(user_serialized)
 
     file = URI.parse(data["results"][0]["picture"]["large"]).open
-    nanny = Nanny.create(name: data["results"][0]["name"]["first"], description: Faker::Lorem.paragraph, hour_rate: rand(8.0..25.5).round(1), photo_url: data["results"][0]["picture"]["large"])
+    nanny = Nanny.create(name: data["results"][0]["name"]["first"], description: Faker::Lorem.paragraph, hour_rate: rand(8.00..25.50).round(2), photo_url: data["results"][0]["picture"]["large"])
     nanny.photo.attach(io: file, filename: "#{nanny.name}.jpg", content_type: "image/jpg")
     user.nannies << nanny
   end
