@@ -24,9 +24,9 @@ class BookingsController < ApplicationController
 
   def accept
     if @booking.update(status: 'accepted')
-      redirect_to profile_path, anchor: dom_id(@booking.nanny), notice: 'Booking accepted.'
+      redirect_to profile_path, notice: 'Booking accepted.'
     else
-      redirect_to profile_path, anchor: dom_id(@booking.nanny), alert: "Booking could not be accepted."
+      redirect_to profile_path, alert: "Booking could not be accepted."
     end
   end
 

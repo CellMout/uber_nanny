@@ -10,8 +10,6 @@
   </div>
 
   <% current_user.nannies.each do |nanny| %>
-    <div>
-    <%= content_tag :div, id: dom_id(nanny) do %>
 
     <div class="card-c m-3 rounded">
       <div>
@@ -104,8 +102,6 @@
 
       </div>
 
-    </div>
-    <% end %>
     </div>
   <% end %>
 
