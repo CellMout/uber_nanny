@@ -43,9 +43,9 @@
       <% nanny_bookings = Booking.where(nanny: nanny) %>
       <div class="row mt-1">
         <div class="col">
-          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1">Accepted</h2>
+          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1 fw-bold">Accepted</h2>
           <% nanny_bookings.where(status: "accepted").sort_by { |booking| booking.start_time }.each do |booking| %>
-            <div class="card shadow-sm bg-success bg-opacity-10 my-1 mx-1 d-block p-1">
+            <div class="card shadow-sm bg-success bg-opacity-10 my-1 mx-1 d-block p-1 rounded">
               <div class="d-inline">
                 <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
                 <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
@@ -60,9 +60,9 @@
         </div>
 
         <div class="col">
-          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1">Pending</h2>
+          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1 fw-bold">Pending</h2>
           <% nanny_bookings.where(status: "pending").sort_by { |booking| booking.start_time }.each do |booking| %>
-            <div class="card shadow-sm bg-warning bg-opacity-10 my-1 mx-1 d-block p-1 d-inline-block">
+            <div class="card shadow-sm bg-warning bg-opacity-10 my-1 mx-1 d-block p-1 d-inline-block rounded">
               <div class="d-inline">
                 <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
                 <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
@@ -86,15 +86,15 @@
         </div>
 
         <div class="col">
-          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1">Declined</h2>
+          <h2 style=" box-shadow: 0 4px 2px -2px gray;" class="border mx-1 p-1 fw-bold">Declined</h2>
           <% nanny_bookings.where(status: "declined").sort_by { |booking| booking.start_time }.each do |booking| %>
-            <div class="card shadow-sm bg-danger bg-opacity-10 my-1 mx-1 d-block p-1">
+            <div class="card shadow-sm bg-danger bg-opacity-10 my-1 mx-1 d-block p-1 rounded">
               <div class="d-inline">
                 <p><%= booking.user.first_name %> <%= booking.user.last_name %> <br /> email: <%= booking.user.email %></p>
                 <p>from: <%= booking.start_time %> <br /> to: <%= booking.end_time %> (~<%= booking.duration %> days)</p>
               </div>
               <div class="d-inline">
-                <%= link_to booking_path(booking), class: "btn btn-dark text-white" do %>
+                <%= link_to booking_path(booking), class: "btn btn-dark text-white rounded" do %>
                   <i class="fa-solid fa-circle-info"></i>
                 <% end %>
               </div>
@@ -112,7 +112,7 @@
 
   <h1 class="ms-3 mb-3">My requests</h1>
   <% current_user.bookings.each do |booking| %>
-    <div class="card-c m-3 my-1 rounded-5 p-2 m-1 d-flex justify-content-between align-items-center">
+    <div class="card-c m-3 my-2 rounded-5 p-2 m-1 d-flex justify-content-between align-items-center">
       <div>
         To: <%= booking.nanny.name %>
         from: <%= booking.start_time %> to: <%= booking.end_time %> (~<%= booking.duration %> days)
@@ -127,7 +127,7 @@
         <% end %>
       </div>
       <div>
-        <%= link_to edit_booking_path(booking), class: "btn btn-dark text-white rounded-5" do %>
+        <%= link_to edit_booking_path(booking), class: "btn btn-dark text-white rounded" do %>
           <i class="fa-solid fa-pen-to-square"></i>
         <% end %>
         <%= link_to booking_path(booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger text-white rounded-5 " do %>
