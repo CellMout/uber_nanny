@@ -15,7 +15,8 @@
          <div class="card-product-infos">
             <h2><%= link_to nanny.name, nanny_path(nanny), class: "text-decoration-none text-dark fw-bold" %></h2>
             <p><%= nanny.description %></p>
-            <p><%= nanny.hour_rate %>€/h</p>
+
+            <b><p class="text-end"> <%= nanny.hour_rate.round(2) %>€/h</p></b>
 
           </div>
         </div>
