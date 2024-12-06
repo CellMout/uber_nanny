@@ -3,5 +3,8 @@
   <%= f.input :description %>
   <%= f.input :photo, as: :file, label: "Upload Profile Photo" %>
   <%= f.input :hour_rate, as: :float %>
-  <%= f.submit "Send", class: "btn btn-outline-primary btn-lg btn-block" %>
+  <div class="d-flex justify-content-between">
+    <%= f.submit "Send", class: "btn btn-outline-primary btn-lg" %>
+    <%= link_to "cancel", profile_path, class: "btn btn-outline-secondary btn-lg" %>
+  </div>
 <% end %>
