@@ -4,7 +4,7 @@
     <div>
       <div class="card-product h-100 my-4" onclick="window.location='<%= nanny_path %>'">
         <% if @nanny.photo.attached? %>
-          <%= cl_image_tag nanny.photo.key, alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
+          <%= cl_image_tag @nanny.photo.key, alt: "Profile photo of #{@nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
         <% else %>
           <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{@nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
         <% end %>
