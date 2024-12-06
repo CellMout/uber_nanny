@@ -1,18 +1,15 @@
 <div class="container">
-  <div class="">
-
-    <div>
-      <div class="card-product h-100 my-4" onclick="window.location='<%= nanny_path %>'">
-        <% if @nanny.photo.attached? %>
-          <%= cl_image_tag nanny.photo.key, alt: "Profile photo of #{nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
-        <% else %>
-          <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{@nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
-        <% end %>
-        <div class="card-product-infos">
-          <h2><%= link_to @nanny.name, nanny_path, class: "text-decoration-none text-dark fw-bold" %></h2>
-          <p><%= @nanny.description %></p>
-          <b><p class="text-end"><%= @nanny.hour_rate.round(2) %>€/h</p></b>
-        </div>
+  <div>
+    <div class="card-product h-100 my-4" onclick="window.location='<%= nanny_path %>'">
+      <% if @nanny.photo.attached? %>
+        <%= cl_image_tag @nanny.photo.key, alt: "Profile photo of #{@nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
+      <% else %>
+        <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{@nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
+      <% end %>
+      <div class="card-product-infos">
+        <h2><%= link_to @nanny.name, nanny_path, class: "text-decoration-none text-dark fw-bold" %></h2>
+        <p><%= @nanny.description %></p>
+        <b><p class="text-end"><%= @nanny.hour_rate.round(2) %>€/h</p></b>
       </div>
     </div>
 
@@ -34,14 +31,11 @@
             <%= f.input :address, label: "Adresse", input_html: { class: "form-control form-control-lg", placeholder: "Entrez l'adresse ici..." } %>
           </div>
 
-          <div class="text-center mt-4">
+          <div class="mt-4 d-flex justify-content-between">
             <%= f.button :submit, "Book this Uber Nanny !", class: 'btn btn-outline-primary btn-lg btn-block' %>
+            <%= link_to 'cancel', nannies_path, class: 'btn btn-outline-secondary btn-lg' %>
           </div>
         <% end %>
-
-        <div class="text-end mt-3">
-          <%= link_to 'Back to List', nannies_path, class: 'btn btn-primary' %>
-        </div>
       </div>
     </div>
   </div>

@@ -1,25 +1,20 @@
 <div class="container">
 
-
-<div class="nanny-info-container">
-
-    <div>
+   <div class="card-product h-100 my-4" onclick="window.location='<%= nanny_path %>'">
       <% if @nanny.photo.attached? %>
-        <%= cl_image_tag @nanny.photo.key, alt: "Profile photo of #{@nanny.name}", height: 300, width: 400, crop: :fill %>
+        <%= cl_image_tag @nanny.photo.key, alt: "Profile photo of #{@nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
       <% else %>
-        <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{@nanny.name}", height: 300, width: 400, crop: :fill %>
+        <%= cl_image_tag "0awben1djbrwe3z575gpivko4apy", alt: "Profile photo of #{@nanny.name}", height: 100, width: 100, crop: :fill, class: "profile-photo" %>
       <% end %>
+      <div class="card-product-infos">
+        <h2><%= link_to @nanny.name, nanny_path, class: "text-decoration-none text-dark fw-bold" %></h2>
+        <p><%= @nanny.description %></p>
+        <b><p class="text-end"><%= @nanny.hour_rate.round(2) %>€/h</p></b>
+      </div>
     </div>
 
-    <div class="nanny-details">
-      <h1><%= @nanny.name %></h1>
-      <p><%= @nanny.description %></p>
-    </div>
-  </div>
 
-  <div class="reservation-form-container">
-
-    <div class="reservation-form">
+    <div class="reservation-form mb-4">
     <h1 class="text-center mb-4">Edit this nanny's profile</h1>
       <%= render "form" %>
     </div>
